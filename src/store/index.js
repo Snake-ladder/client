@@ -1,35 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { User, Room } from '../api/firebase'
+import db from '@/config/firebase.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
-      name: '',
-      position: 1,
-      icon: ''
-    },
-    room: {
-      players: [],
-      name: '',
-      status: ''
-    },
     rooms: [],
-
+    newRoom: ''
   },
   mutations: {
-    SET_ROOMS (state, payload) {
+    setRooms (state, payload) {
       state.rooms = payload
-    },
-    SET_ROOM (state, payload) {
-      state.room = payload
-    },
-    SET_USER (state, payload) {
-      state.user = payload
     }
   },
   actions: {
+    getRooms ({ commit }) {
+      db.collection('rooms')
+        .onSnapshot(querySnapshot => {
+          let result = []
+          querySnapshot.forEach(doc => {
+            let room = {
+              id: doc.id,
+              ...doc.data()
+            }
+            result.push(room)
+          })
+          commit('setRooms', result)
+        })
+    },
+    addRoom ({ commit }) {
+      let data = {}
+      db.collection('rooms').set(data);
+    },
+    addUser ({commit}, payload) {
+      
+    }
   }
 })

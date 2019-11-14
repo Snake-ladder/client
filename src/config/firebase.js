@@ -1,12 +1,14 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
-firebase.initializeApp({
-  apiKey: process.env.VUE_APP_API_KEY,
-  authDomain: process.env.VUE_APP_AUTH_DOMAIN,
-  projectId: process.env.VUE_APP_PROJECT_ID
-})
+const firebaseConfig = {
+    apiKey: process.env.VUE_APP_API_KEY,
+    authDomain: process.env.VUE_APP_AUTH_DOMAIN,
+    projectId: process.env.VUE_APP_PROJECT_ID
+};
 
-const db = firebase.firestore()
+firebase.initializeApp(firebaseConfig);
 
-export default db
+const db = firebase.firestore();
+
+export default db;
