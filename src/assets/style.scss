@@ -1,0 +1,357 @@
+@import url("https://fonts.googleapis.com/css?family=Poiret+One");
+/* Colours */
+body {
+  background-color: black;
+  width: 70%;
+  margin: 0 auto;
+  font-family: 'Poiret One', cursive, 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+.item {
+  position: relative;
+  float: left;
+  width: 10%;
+  padding-bottom: 10%;
+}
+.item:nth-child(n) {
+  background: #ccc;
+}
+.item:nth-child(n):nth-child(n + 11) {
+  background: #aaa;
+}
+.item:nth-child(n):nth-child(n + 21) {
+  background: #ccc;
+}
+.item:nth-child(n):nth-child(n + 31) {
+  background: #aaa;
+}
+.item:nth-child(n):nth-child(n + 41) {
+  background: #ccc;
+}
+.item:nth-child(n):nth-child(n + 51) {
+  background: #aaa;
+}
+.item:nth-child(n):nth-child(n + 61) {
+  background: #ccc;
+}
+.item:nth-child(n):nth-child(n + 71) {
+  background: #aaa;
+}
+.item:nth-child(n):nth-child(n + 81) {
+  background: #ccc;
+}
+.item:nth-child(n):nth-child(n + 91) {
+  background: #aaa;
+}
+.item:nth-child(2n) {
+  background: #aaa;
+}
+.item:nth-child(2n):nth-child(n + 11) {
+  background: #ccc;
+}
+.item:nth-child(2n):nth-child(n + 21) {
+  background: #aaa;
+}
+.item:nth-child(2n):nth-child(n + 31) {
+  background: #ccc;
+}
+.item:nth-child(2n):nth-child(n + 41) {
+  background: #aaa;
+}
+.item:nth-child(2n):nth-child(n + 51) {
+  background: #ccc;
+}
+.item:nth-child(2n):nth-child(n + 61) {
+  background: #aaa;
+}
+.item:nth-child(2n):nth-child(n + 71) {
+  background: #ccc;
+}
+.item:nth-child(2n):nth-child(n + 81) {
+  background: #aaa;
+}
+.item:nth-child(2n):nth-child(n + 91) {
+  background: #ccc;
+}
+.item .content {
+  position: absolute;
+  width: 100%;
+  padding: 0 0 0 0.75rem;
+}
+.item .content img {
+  position: absolute;
+  z-index: 99;
+  width: 50%;
+  top: 50%;
+  right: 20%;
+}
+.item .content img:hover {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+.ladder {
+  width: 20%;
+  color: #b67d0b;
+  /*  border:3px solid black;
+    border-bottom:none;
+    border-top:none;
+    position:absolute;
+    z-index:1;
+    background-image: linear-gradient(0deg, transparent 25%, black 26%, black 29%, transparent 30%, transparent 77%, black 78%, black 81%, transparent 82%, transparent);
+    height:100%;
+    background-size:10% 10%;
+    
+    &.four{
+      transform: rotate(60deg);
+      padding-bottom:260%;
+      bottom:-30%;
+      left:190%;
+    }
+    &.nine{
+      transform: rotate(20deg);
+      padding-bottom:260%;
+      bottom:60%;
+      left:90%;
+    }
+    &.twenty{
+      transform: rotate(60deg);
+      padding-bottom:210%;
+      bottom:-5%;
+      right:-120%;
+    }
+    &.twentyeight{
+      transform: rotate(-35deg);
+      padding-bottom:660%;
+      bottom:20%;
+      left:-160%;
+      background-size:10% 4%;
+    }
+    &.thirtysix{
+      transform: rotate(-30deg);
+      padding-bottom:170%;
+      bottom:60%;
+      left:-5%;
+    }
+    &.fiftyone{
+      transform: rotate(-50deg);
+      padding-bottom:160%;
+      bottom:30%;
+      left:-40%;
+    }
+    &.seventyone{
+      transform: rotate(-30deg);
+      padding-bottom:80%;
+      bottom:70%;
+      right:90%;
+    }
+    &.eighty{
+      transform: rotate(30deg);
+      padding-bottom:100%;
+      bottom:40%;
+      right:-35%;
+    }  */
+}
+
+/* Needed for Internet Explorer */
+.svg-box {
+  width: 65%;
+  height: 0;
+  position: absolute;
+  z-index: 9;
+  margin: 4% 0 0 5%;
+}
+
+.svg-box-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.overlay {
+  color: #fff;
+  display: block;
+  padding: 50%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  z-index: 9;
+  transition: opacity 0.3s linear;
+  background: rgba(255, 255, 255, 0.5);
+}
+.overlay .tooltip {
+  position: absolute;
+  width: 200%;
+  left: calc(-50% - 1rem);
+  text-align: center;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.3s linear, margin 0.2s linear;
+  background-color: black;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+.overlay .tooltip.bottom {
+  top: 105%;
+}
+.overlay .tooltip.bottom:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-bottom: solid black 10px;
+  top: -9px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  position: absolute;
+  width: 0;
+}
+.overlay .tooltip.top {
+  bottom: 105%;
+}
+.overlay .tooltip.top:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid black 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  position: absolute;
+  width: 0;
+  z-index: 999;
+}
+.overlay .tooltip.right {
+  left: 105%;
+}
+.overlay .tooltip.right:after {
+  border-right: solid black 10px;
+  border-top: solid transparent 10px;
+  border-bottom: solid transparent 10px;
+  bottom: 30%;
+  content: " ";
+  height: 0;
+  left: -9px;
+  position: absolute;
+  width: 0;
+  z-index: 999;
+}
+.overlay .tooltip.left {
+  left: -205%;
+}
+.overlay .tooltip.left:after {
+  border-left: solid black 10px;
+  border-bottom: solid transparent 10px;
+  border-top: solid transparent 10px;
+  bottom: 30%;
+  content: " ";
+  height: 0;
+  right: -9px;
+  position: absolute;
+  width: 0;
+  z-index: 999;
+}
+
+item:hover {
+  opacity: 0.2;
+}
+
+.item:hover .overlay {
+  opacity: 1;
+}
+
+.item:hover .overlay h2 {
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.none {
+  display: none;
+}
+
+.snake {
+  animation: snake 25s linear forwards;
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.4);
+  stroke-width: 0.4;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  color: #990000;
+  stroke-dasharray: 1% 1%;
+
+
+}
+
+@keyframes snake {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.steps {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  stroke-width: 1;
+  fill: none;
+  stroke: #333;
+  stroke-width: 0.2;
+}
+
+@-webkit-keyframes step {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+svg .steps {
+  -webkit-animation: step 10s 1s linear infinite;
+}
+
+.line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  stroke-width: 0.5;
+  stroke: #333;
+  stroke-width: 0.5;
+}
+
+@-webkit-keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+svg .line {
+  -webkit-animation: dash 2s 1s linear forwards;
+}
