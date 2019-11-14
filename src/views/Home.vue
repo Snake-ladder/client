@@ -44,3 +44,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.snake1 {
+  position: absolute !important;
+  top: 380px !important;
+  left: 220px !important;
+  z-index: 1 !important;
+}
+</style>

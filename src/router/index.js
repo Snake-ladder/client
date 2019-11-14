@@ -24,6 +24,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "lobby" */ '../views/Lobby.vue')
   },
   {
+    path: '/game',
+    name: 'game',
+    component: () => import(/* webpackChunkName: "game" */ '../views/Game.vue')
+  },
+  {
     path: '/waiting/:id',
     name: 'waiting',
     component: () => import(/* webpackChunkName: "waiting" */ '../views/Waiting.vue')
