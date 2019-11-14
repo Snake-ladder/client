@@ -18,7 +18,15 @@ export default new Vuex.Store({
       },
       {
         start:31,
-        end:4
+        end: 4
+      },
+      {
+        start:99,
+        end: 88
+      },
+      {
+        start: 71,
+        end: 54
       }
     ]
   },
@@ -38,10 +46,8 @@ export default new Vuex.Store({
         state.player.position = (100 - (newPosition - 100))
       }
     },
-    SET_OBSTACLE (state) {
-
-      state.obstacle = randomPos
-      console.log(state.obstacle,'-----------');
+    GET_OBSTACLE (state,payload) {
+      state.player.position = payload
     }
   },
   actions: {

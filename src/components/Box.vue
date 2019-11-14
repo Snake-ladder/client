@@ -3,7 +3,7 @@
     <div class="content">
         <h2>{{number}}</h2>
         <img :src="image">
-        <img :src="obstaclePos">
+       {{obstaclePos}}
     </div>
     <div class="overlay">
     </div>
@@ -25,7 +25,7 @@ export default {
   ],
   computed: {
     ...mapState([
-      'player', 'obstacle'
+      'player', 'obstacles'
     ])
   },
   watch: {
@@ -35,11 +35,22 @@ export default {
       } else {
         this.image = ''
       }
+      for(let i = 0; i < this.obstacles.length; i++) {
+          if(this.player.position === this.obstacles[i].start) {
+              this.$store.commit('GET_OBSTACLE',this.obstacles[i].end)
+          }
+      }
     }
   },
   created () {
     if (this.player.position === this.number) {
       this.image = this.player.image      
+    }
+    
+    for(let i = 0; i< this.obstacles.length; i++) {
+        if (this.obstacles[i].start === this.number) {
+            this.obstaclePos = '🐍'
+        }
     }
 
   }
