@@ -1,16 +1,55 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '@/config/firebase'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
+    rooms: [],
+    player: {
       name: '',
-      position: 0
+      position: 1,
+      image: 'https://image.flaticon.com/icons/svg/47/47058.svg'
     },
-    rooms: []
+    isWinner: false,
+    obstacles: [
+      {
+        start: 29,
+        end: 6
+      },
+      {
+        start: 60,
+        end: 37
+      },
+      {
+        start: 99,
+        end: 63
+      },
+      {
+        start: 71,
+        end: 53
+      }
+    ],
+    ladder: [
+      {
+        start: 47,
+        end: 66
+      },
+      {
+        start: 64,
+        end: 95
+      },
+      {
+        start: 10,
+        end: 31
+      },
+      {
+        start: 16,
+        end: 36
+      }
+    ]
   },
   mutations: {
     SET_POSITION (state, payload) {
@@ -18,13 +57,47 @@ export default new Vuex.Store({
     },
     SET_ROOMS (state, payload) {
       state.rooms = payload
+    },
+    CHANGE_POSITION (state, payload) {
+      state.player.position = payload
+    },
+    ROLE_DICE (state, payload) {
+      // let randomNum = Math.floor(Math.random() * 13)
+      console.log(payload, 'payyyyyy')
+      console.log(state.player.position, ':0')
+
+      let newPosition = state.player.position += Number(payload)
+      console.log(newPosition, '---------')
+
+      // while (state.player.position !== newPosition) {
+      //   state.player.position += 1
+      //   this.CHANGE_POSITION(this, state.player.position)
+      // }
+
+      if (newPosition === 100) {
+        state.isWinner = true
+        Swal.fire('success', 'you win', 'success')
+      } else if (newPosition > 100) {
+        newPosition = (100 - (newPosition - 100))
+      }
+      state.ladder.forEach(el => {
+        if (newPosition === el.start) {
+          newPosition = el.end
+        }
+      })
+      state.obstacles.forEach(el => {
+        if (newPosition === el.start) {
+          newPosition = el.end
+        }
+      })
+      state.player.position = newPosition
     }
   },
   actions: {
     addPlayer ({ commit, state, dispatch }, payload) {
       console.log('payload====>', payload)
       return new Promise((resolve, reject) => {
-        payload.position = 0
+        payload.position = 1
         db.collection('users')
           .add(payload)
           .then(doc => {
