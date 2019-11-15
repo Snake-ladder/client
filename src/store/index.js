@@ -59,7 +59,6 @@ export default new Vuex.Store({
       state.rooms = payload
     },
     CHANGE_POSITION (state, payload) {
-     
       state.player.position = payload
     },
     ROLE_DICE (state, payload) {

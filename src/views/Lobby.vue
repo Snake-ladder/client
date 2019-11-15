@@ -56,7 +56,6 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 export default {
-<<<<<<< HEAD
   name: 'lobby',
   data () {
     return {
@@ -172,20 +171,3 @@ export default {
 }
 
 </style>
-=======
-    data () {
-        return {
-            roomName: ''
-        }
-    },
-    computed: mapState({
-        roomName: state => state.newRoom,
-
-    })
-}
-</script>
-
-<style>
-
-</style>
->>>>>>> stash
