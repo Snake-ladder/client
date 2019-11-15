@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="body-game">
 
 <div style="display:flex; justify-content:center; margin-bottom:10px;">
   <div style="margin-right:10px; margin-top:5px;">
@@ -158,6 +158,12 @@ export default {
 </script>
 
 <style scoped>
+.body-game {
+  /* background-color: black; */
+  width: 550px;
+  height: 550px;
+  margin: 0 auto;
+}
 .snake1 {
   position: absolute !important;
   top: 30px !important;

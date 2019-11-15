@@ -5,7 +5,7 @@
         <h1>LOBBY LIST</h1>
       </div>
       <div class="ml-auto">
-         <button class="custom-btn" data-toggle="modal" data-target="#addRoom">Add</button>
+         <button class="custom-btn" data-toggle="modal" data-target="#myModal">Add</button>
       </div>
     </div>
 
@@ -33,7 +33,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="addRoom" tabindex="-1" role="dialog" aria-labelledby="addRoom" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="addRoom" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -43,13 +43,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form @submit.prevent="submitRoom">
                         <input autofocus type="text" name="name" v-model="roomName" placeholder="Enter Room Name" class="p-2 input-modal">
+                        <input type="submit" class="btn btn-primary" value="Create"></input>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" @click.prevent="submitRoom()">Create</button>
-            </div>
             </div>
         </div>
     </div>
@@ -74,6 +72,7 @@ export default {
   },
   methods: {
     submitRoom () {
+      $('#myModal').modal('hide')
       this.$store
         .dispatch('createRoom', {
           roomName: this.roomName
@@ -113,6 +112,7 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
+    overflow: auto;
 }
 
 .table-header {

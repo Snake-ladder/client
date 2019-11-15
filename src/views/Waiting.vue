@@ -5,7 +5,7 @@
       <li v-for="player in players" :key="player.id">{{ player.name }}</li>
     </ol> -->
     <div class="main p-5">
-        <h1 class="pb-2">{{ room.name }}</h1>
+        <h3 class="pb-2">{{ room.name }}</h3>
         <p>{{ room.status }}</p>
 
         <h3 class="pt-2">Players: </h3>
