@@ -43,9 +43,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="submitRoom">
-                        <input autofocus type="text" name="name" v-model="roomName" placeholder="Enter Room Name" class="p-2 input-modal">
-                        <input type="submit" class="btn btn-primary" value="Create"></input>
+                    <form @submit.prevent="submitRoom" class="d-flex justify-content-space-between">
+                        <input required autofocus type="text" name="name" v-model="roomName" placeholder="Enter Room Name" class="p-2 input-modal">
+                        <input type="submit" class="p-2 btn btn-light createRoomBtn" value="Create"></input>
                     </form>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     submitRoom () {
-      $('#myModal').modal('hide')
+      $('#myModal').modal('toggle');
       this.$store
         .dispatch('createRoom', {
           roomName: this.roomName
@@ -155,7 +155,15 @@ export default {
   left: 50%;
 }
 
+.input-modal {
+  width: 200px;
+}
+
 .input-modal:focus {
   outline: none;
+}
+
+.createRoomBtn {
+  border-radius: 0;
 }
 </style>
