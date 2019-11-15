@@ -7,19 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    turn: null,
-    player1:
-      {
-        id: 1,
-        position: 1,
-        image: 'https://image.flaticon.com/icons/svg/47/47058.svg'
-      },
-    player2: 
-      {
-        id: 2,
-        position: 1,
-        image: 'https://image.flaticon.com/icons/svg/47/47150.svg' 
-      },
+    player: {
+      position: 1,
+      image: 'https://image.flaticon.com/icons/svg/47/47058.svg'
+    },
     isWinner: false,
     obstacles: [
       {
@@ -62,14 +53,11 @@ export default new Vuex.Store({
     CHANGE_POSITION (state, payload) {
       state.player.position = payload
     },
-    CHANGE_TURN (state, payload) {
-      state.turn = payload
-    },
     ROLE_DICE (state, payload) {
       // let randomNum = Math.floor(Math.random() * 13)
       console.log(payload, 'payyyyyy')
       console.log(state.player.position, ':0')
-      
+
       let newPosition = state.player.position += Number(payload)
       console.log(newPosition, '---------')
 
