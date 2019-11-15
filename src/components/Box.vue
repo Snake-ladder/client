@@ -3,7 +3,10 @@
     <div class="content">
         <h2>{{number}}</h2>
         <img :src="image">
-       {{obstaclePos}}
+        {{ obstacleStart }}
+        {{ obstacleEnd }}
+        {{ ladderStart }}
+        {{ ladderEnd }}
     </div>
     <div class="overlay">
     </div>
@@ -17,7 +20,10 @@ export default {
   data () {
     return {
       image: '',
-      obstaclePos: ''
+      obstacleStart: '',
+      obstacleEnd: '',
+      ladderStart: '',
+      ladderEnd: ''
     }
   },
   props: [
@@ -25,7 +31,7 @@ export default {
   ],
   computed: {
     ...mapState([
-      'player', 'obstacles'
+      'player', 'obstacles', 'ladder'
     ])
   },
   watch: {
@@ -35,24 +41,33 @@ export default {
       } else {
         this.image = ''
       }
-      for(let i = 0; i < this.obstacles.length; i++) {
-          if(this.player.position === this.obstacles[i].start) {
-              this.$store.commit('GET_OBSTACLE',this.obstacles[i].end)
-          }
+      for (let i = 0; i < this.obstacles.length; i++) {
+        if (this.player.position === this.obstacles[i].start) {
+          this.$store.commit('GET_OBSTACLE', this.obstacles[i].end)
+        }
       }
     }
   },
   created () {
     if (this.player.position === this.number) {
-      this.image = this.player.image      
+      this.image = this.player.image
     }
-    
-    for(let i = 0; i< this.obstacles.length; i++) {
-        if (this.obstacles[i].start === this.number) {
-            this.obstaclePos = '🐍'
-        }
-    }
-
+    // this.obstacles.forEach(el => {
+    //   if (el.start === this.number) {
+    //     this.obstacleStart = '🐍'
+    //   }
+    //   if (el.end === this.number) {
+    //     this.obstacleEnd = '🐊'
+    //   }
+    // })
+    // this.ladder.forEach(el => {
+    //   if (el.start === this.number) {
+    //     this.ladderStart = '🌠'
+    //   }
+    //   if (el.end === this.number) {
+    //     this.ladderEnd = '🌟'
+    //   }
+    // })
   }
 }
 </script>

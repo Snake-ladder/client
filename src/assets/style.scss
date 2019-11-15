@@ -2,7 +2,8 @@
 /* Colours */
 body {
   background-color: black;
-  width: 70%;
+  width: 550px;
+  height:550px;
   margin: 0 auto;
   font-family: 'Poiret One', cursive, 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
 }
@@ -10,10 +11,11 @@ body {
 h1 {
   color: white;
   text-align: center;
+  font-size: 15px;
 }
 
 h2 {
-  font-size: 1rem;
+  font-size: 10px;
 }
 
 .item {
