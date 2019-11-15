@@ -1,18 +1,46 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <form @submit.prevent="submitPlayer">
+      <input type="text" v-model="name" placeholder="nickname">
+      <input type="submit" value="play">
+    </form>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      name: ''
+    }
+  },
+  computed: {
+    ...mapState([
+      'user'
+    ])
+  },
+  methods: {
+    // ...mapActions({
+    //   submitPlayer: 'addPlayer'
+    // })
+    submitPlayer () {
+      console.log('sending...')
+      this.$store
+        .dispatch('addPlayer', {
+          name: this.name
+        })
+        .then(result => {
+          console.log(result)
+          this.$router.push('/about')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }
 }
 </script>
