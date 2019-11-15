@@ -102,8 +102,8 @@ export default new Vuex.Store({
             let objRoom = room.data()
             let unique = true
             console.log(objRoom)
-            if (objRoom.players.length >= 4 && objRoom.status !== 'waiting') {
-              reject(new Error('room unavailable'))
+            if (objRoom.players.length >= 4 || objRoom.status !== 'waiting') {
+              throw new Error('room unavailable')
             } else {
               objRoom.players.forEach(player => {
                 if (player.id === localStorage.getItem('userId')) unique = false
@@ -115,6 +115,7 @@ export default new Vuex.Store({
                 })
               }
               localStorage.setItem('currentRoom', room.id)
+              if (objRoom.players.length === 4) objRoom.status = 'playing'
               return db.collection('rooms').doc(payload).set(objRoom)
             }
           })

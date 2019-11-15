@@ -51,6 +51,9 @@ export default {
           console.log(err)
         })
     }
+  },
+  created () {
+    this.$store.dispatch('fetchRooms')
   }
 }
 </script>
