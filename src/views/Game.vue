@@ -10,7 +10,7 @@
   </div>
 </div>
 <div style="position:relative;">
-  <Box v-for="(board,index) in boards " :key='index' :number='board'></Box>
+  <Box v-for="(board,index) in boards " :key='index' :number='board' :players='players'></Box>
   <img class="snake1" src="../../public/snake1.png" alt="" width="150px;">
   <img class="snake4" src="../../public/snake5.png" alt="" style="width:150px">
   <img class="snake2" src="../../public/snake6.png" alt="" width="150px;">
@@ -78,10 +78,16 @@ export default {
     return {
       boards: [],
       image: '',
-      dice: null
+      dice: null,
+      room: {
+        name: '',
+        status: ''
+      },
+      players: []
     }
   },
   created () {
+    this.fetchCurrentRoom()
     function snakesAndLadders (num) {
       let result = []
       let numbers = num * num
@@ -139,6 +145,28 @@ export default {
         // let num = localStorage.getItem('dice')
         this.$store.commit('ROLE_DICE', this.dice)
       }, 2500)
+    },
+    fetchCurrentRoom () {
+      this.$store
+        .dispatch('fetchCurrentRoom', this.$route.params.id)
+        .then(result => {
+          console.log(result)
+          let arr = []
+          result.players.forEach(player => {
+            this.$store.dispatch('getPlayer', player.id)
+              .then(data => {
+                arr.push(data)
+                console.log('data===>', data)
+              })
+              .catch(console.log)
+          })
+          this.players = arr
+          this.room.name = result.name
+          this.room.status = result.status
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   mounted () {

@@ -19,7 +19,7 @@
         <div class="row pt-2">
             <div class="col-sm-3" v-for="player in players" :key="player.name">
                 <div class="card">
-                    <img src="https://lh5.googleusercontent.com/-0ihf5MV1mQs/TXsJ3wJ29gI/AAAAAAAAB78/WWds9wittRE/s1600/satria+baja+hitam+rx+1.jpg" class="card-img-top" alt="...">
+                    <img :src="player.image" class="card-img-top" alt="character">
                     <div class="card-body text-center">
                         <p class="card-text">{{ player.name }}</p>
                     </div>
