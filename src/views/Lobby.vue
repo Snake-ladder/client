@@ -9,6 +9,10 @@
       </div>
     </div>
 
+    <div class="spinner-border" role="status" v-if="listRoom.length == 0 || joiningRoom">
+      <span class="sr-only">Loading...</span>
+    </div>
+
     <div class="room-list d-flex justify-content-around px-5">
         <table class="table table-borderless">
             <thead>
@@ -19,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-row" v-for="room in dummyRooms" :key="room.id" @click="joinRoom(room.id)">
+                <tr class="table-row" v-for="room in listRoom" :key="room.id" @click="joinRoom(room.id)">
                     <td>{{ room.name }}</td>
                     <td>{{ room.players.length }} / 4</td>
                     <td>{{ room.status }}</td>
@@ -39,13 +43,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="addRoom(name)">
-                        <input autofocus type="text" name="name" v-model="name" placeholder="Enter Room Name" class="p-2">
-                        <!-- <button type="submit">Create</button> -->
+                    <form>
+                        <input autofocus type="text" name="name" v-model="roomName" placeholder="Enter Room Name" class="p-2 input-modal">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary" @click.prevent="submitRoom()">Create</button>
             </div>
             </div>
         </div>
@@ -60,69 +63,42 @@ export default {
   data () {
     return {
       name: '',
-      dummyRooms: []
+      roomName: '',
+      joiningRoom: false
     }
   },
-  computed: mapState({
-    allRooms: 'rooms'
-  }),
+  computed: {
+    listRoom () {
+      return this.$store.state.rooms
+    }
+  },
   methods: {
-    ...mapActions([
-      'getRooms',
-      'addRoom'
-    ]),
-    setDummyRooms () {
-      let arr = [
-        {
-          id: 1,
-          name: 'room 1',
-          status: 'PLAYING',
-          players: [
-            {
-              name: 'asd'
-            },
-            {
-              name: 'zxc'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'room 2',
-          status: 'WAITING',
-          players: [
-            {
-              name: 'asd'
-            },
-            {
-              name: 'zxc'
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: 'room 3',
-          status: 'PLAYING',
-          players: [
-            {
-              name: 'asd'
-            },
-            {
-              name: 'zxc'
-            }
-          ]
-        }
-      ]
-      this.dummyRooms = arr
+    submitRoom () {
+      this.$store
+        .dispatch('createRoom', {
+          roomName: this.roomName
+        })
+        .then(result => {
+          this.$router.push(`/waiting/${localStorage.getItem('currentRoom')}`)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     joinRoom (id) {
-    //   console.log(id)
-      this.$router.push('/waiting')
-    //   this.$router.push(`/${id}`)
+      this.$store
+        .dispatch('joinRoom', id)
+        .then(result => {
+          this.joiningRoom = true;
+          this.$router.push(`/waiting/${localStorage.getItem('currentRoom')}`)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   created () {
-    this.setDummyRooms()
+    this.$store.dispatch('fetchRooms')
   }
 }
 </script>
@@ -166,8 +142,20 @@ export default {
     box-shadow: 0 5px 15px #43a0bd;
 }
 
+.custom-btn:focus {
+  outline: none;
+}
+
 .modal-content {
     background-color: rgba(30, 62, 104, 0.8)
 }
+.spinner-border {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
 
+.input-modal:focus {
+  outline: none;
+}
 </style>
