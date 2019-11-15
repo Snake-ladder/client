@@ -22,6 +22,11 @@ const routes = [
     path: '/lobby',
     name: 'lobby',
     component: () => import(/* webpackChunkName: "lobby" */ '../views/Lobby.vue')
+  },
+  {
+    path: '/waiting',
+    name: 'waiting',
+    component: () => import(/* webpackChunkName: "waiting" */ '../views/Waiting.vue')
   }
 ]
 

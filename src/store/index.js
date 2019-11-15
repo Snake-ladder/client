@@ -6,8 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    rooms: [],
-    newRoom: ''
+    rooms: []
   },
   mutations: {
     setRooms (state, payload) {
@@ -29,9 +28,19 @@ export default new Vuex.Store({
           commit('setRooms', result)
         })
     },
-    addRoom ({ commit }) {
-      let data = {}
-      db.collection('rooms').set(data);
+    addRoom ({ commit, dispatch }, payload) {
+      let data = {
+        name: payload
+      }
+      db.collection('rooms')
+        .add(data)
+        .then(doc => {
+          localStorage.setItem('currentRoom', doc.id)
+          dispatch('getRooms')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 })
