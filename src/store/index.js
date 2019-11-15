@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import db from '@/config/firebase'
 import Swal from 'sweetalert2'
+import { stat } from 'fs'
 
 Vue.use(Vuex)
 
@@ -9,9 +10,7 @@ export default new Vuex.Store({
   state: {
     rooms: [],
     player: {
-      name: '',
-      position: 1,
-      image: 'https://image.flaticon.com/icons/svg/47/47058.svg'
+      
     },
     isWinner: false,
     obstacles: [
@@ -91,6 +90,9 @@ export default new Vuex.Store({
         }
       })
       state.player.position = newPosition
+    },
+    SET_PLAYER(state,payload) {
+      state.player = payload
     }
   },
   actions: {
@@ -103,6 +105,7 @@ export default new Vuex.Store({
           .then(doc => {
             localStorage.setItem('userId', doc.id)
             localStorage.setItem('userName', payload.name)
+            commit('SET_PLAYER',payload)
             dispatch('fetchRooms')
             resolve({
               id: doc.id,
@@ -119,6 +122,12 @@ export default new Vuex.Store({
         .onSnapshot(doc => {
           commit('SET_POSITION', doc.data().position)
         })
+    },
+    updatePlayerPosition({ state }) {
+      let UserId = localStorage.getItem('userId')
+        db.collection('users')
+          .doc(UserId)
+          .set(state.player)
     },
     fetchRooms ({ commit }) {
       db.collection('rooms')
@@ -188,7 +197,22 @@ export default new Vuex.Store({
                 })
               }
               localStorage.setItem('currentRoom', room.id)
-              if (objRoom.players.length === 4) objRoom.status = 'playing'
+              if (objRoom.players.length === 4) {
+                let images = [
+                  'https://image.flaticon.com/icons/svg/47/47058.svg',
+                  'https://image.flaticon.com/icons/svg/47/47150.svg',
+                  'https://image.flaticon.com/icons/svg/47/47126.svg',
+                  'https://image.flaticon.com/icons/svg/47/47101.svg'
+                ]
+                objRoom.players.forEach((player, index) => {
+                  let objPlayer = player
+                  objPlayer.image = images[index]
+                  db.collection('users')
+                    .doc(player.id)
+                    .set(objPlayer)
+                })
+                objRoom.status = 'playing'
+              }
               return db.collection('rooms').doc(payload).set(objRoom)
             }
           })
@@ -197,6 +221,17 @@ export default new Vuex.Store({
             resolve({
               message: 'Success join'
             })
+          })
+          .catch(reject)
+      })
+    },
+    getPlayer ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        db.collection('users')
+          .doc(payload)
+          .get()
+          .then(player => {
+            resolve(player.data())
           })
           .catch(reject)
       })

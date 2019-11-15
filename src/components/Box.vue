@@ -2,7 +2,10 @@
   <div class="item" :id="number">
     <div class="content">
         <h2>{{number}}</h2>
-        <img :src="image">
+        <img :src="image1">
+        <img :src="image2">
+        <img :src="image3">
+        <img :src="image4">
         {{ obstacleStart }}
         {{ obstacleEnd }}
         {{ ladderStart }}
@@ -19,7 +22,10 @@ export default {
   name: 'box',
   data () {
     return {
-      image: '',
+      image1: '',
+      image2: '',
+      image3: '',
+      image4: '',
       obstacleStart: '',
       obstacleEnd: '',
       ladderStart: '',
@@ -27,7 +33,7 @@ export default {
     }
   },
   props: [
-    'number'
+    'number','players'
   ],
   computed: {
     ...mapState([
@@ -41,33 +47,24 @@ export default {
       } else {
         this.image = ''
       }
-      for (let i = 0; i < this.obstacles.length; i++) {
-        if (this.player.position === this.obstacles[i].start) {
-          this.$store.commit('GET_OBSTACLE', this.obstacles[i].end)
-        }
-      }
+      this.$store.dispatch('updatePlayerPosition')
     }
   },
   created () {
-    if (this.player.position === this.number) {
-      this.image = this.player.image
-    }
-    // this.obstacles.forEach(el => {
-    //   if (el.start === this.number) {
-    //     this.obstacleStart = '🐍'
-    //   }
-    //   if (el.end === this.number) {
-    //     this.obstacleEnd = '🐊'
-    //   }
-    // })
-    // this.ladder.forEach(el => {
-    //   if (el.start === this.number) {
-    //     this.ladderStart = '🌠'
-    //   }
-    //   if (el.end === this.number) {
-    //     this.ladderEnd = '🌟'
-    //   }
-    // })
+    // console.log(this.players)
+    
+        // if(this.players[0].position === this.number) {
+        //   this.image1 = this.players[0].image
+        // } 
+        // if(this.players[1].position === this.number) {
+        //   this.image1 = this.players[1].image
+        // }
+        // if(this.players[2].position === this.number) {
+        //   this.image1 = this.players[2].image
+        // }
+        // if(this.players[3].position === this.number) {
+        //   this.image1 = this.players[3].image
+        // }
   }
 }
 </script>
