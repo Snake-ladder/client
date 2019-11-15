@@ -5,8 +5,15 @@
       <li v-for="player in players" :key="player.id">{{ player.name }}</li>
     </ol> -->
     <div class="main p-5">
-        <h3 class="pb-2">{{ room.name }}</h3>
-        <p>{{ room.status }}</p>
+      <div class="row">
+        <div class="col-10">
+          <h3 class="pb-2">{{ room.name }}</h3>
+          <p>{{ room.status }}</p>
+        </div>
+        <div class="col-2">
+          <button class="play-btn p-2 animated" @click="goToPlayRoom">PLAY NOW ></button>
+        </div>
+      </div>
 
         <h3 class="pt-2">Players: </h3>
         <div class="row pt-2">
@@ -36,11 +43,13 @@ export default {
     }
   },
   methods: {
+    goToPlayRoom () {
+      this.$router.push(`/game/${localStorage.getItem('currentRoom')}`)
+    },
     fetchCurrentRoom () {
       this.$store
         .dispatch('fetchCurrentRoom', this.$route.params.id)
         .then(result => {
-          console.log(result)
           let arr = []
           result.players.forEach(player => {
             arr.push(player)
@@ -83,5 +92,15 @@ export default {
 
 .card-body {
     padding: 0.8rem;
+}
+
+.play-btn {
+  height: auto;
+  width: 100px;
+  border: 0;
+}
+
+.play-btn:hover {
+  animation-name: wobble; 
 }
 </style>
